@@ -4,6 +4,7 @@
   },
   "scripts": {
     "dev": "nuxt",
+    "generate": "nuxt generate",
     "deploy": ""
   }
 }
