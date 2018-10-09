@@ -10,7 +10,7 @@
 
           <form @submit.prevent="handleSearch(form.search, breach.Domain)">
             <b-field>
-              <b-input v-model="form.search" type="text" />
+              <b-input v-model="form.search" type="text" placeholder="john@doe.com" />
               <button type="submit" class="button is-success">Search Account</button>
             </b-field>
           </form>
@@ -47,15 +47,16 @@
 
 <script type="text/ecmascript-6">
   import axios from 'axios'
-  import BTable from "buefy/src/components/table/Table";
 
   export default {
-    components: {BTable},
+    name: 'name',
     async asyncData ({route}) {
 
       const breach = await axios.get(`https://haveibeenpwned.com/api/v2/breach/${route.params.name}`)
         .then(res => res.data)
-        .catch(err => console.log(err))
+        .catch(err => {
+          return {}
+        })
 
       return {
         breach,

@@ -27,3 +27,20 @@
 
   }
 </script>
+
+<style>
+  .page-enter-active {
+    animation: bounce-in .8s;
+  }
+  .page-leave-active {
+    animation: bounce-out .5s;
+  }
+  @keyframes bounce-in {
+    0% { transform: scale(.95) }
+    100% { transform: scale(1) }
+  }
+  @keyframes bounce-out {
+    0% { transform: scale(1) }
+    100% { transform: scale(.95) }
+  }
+</style>
