@@ -7,10 +7,6 @@
       <button type="submit">Search</button>
     </form>
 
-    <pre>
-      {{breaches}}
-    </pre>
-
     <table>
       <thead>
       <tr>
