@@ -6,6 +6,6 @@
       <li><nuxt-link to="james-lee/">James Lee</nuxt-link></li>
     </ul>
 
-    <nuxt />
+    <nuxt-child />
   </div>
 </template>
