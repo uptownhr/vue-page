@@ -1,34 +1,49 @@
 <template>
   <div>
-    <h2>Home Page</h2>
+    <div class="hero is-primary">
+      <div class="section">
+        <div class="container">
+          <div class="hero-body">
+            <h1 class="title">Home Page</h1>
+            <h2 class="subtitle">Hacked domain?</h2>
+            <form @submit.prevent="handleSearch(form.search)">
+              <b-field>
+                <b-input v-model="form.search" type="text" placeholder="tumblr.com" />
+                <button type="submit" class="button is-info">Search</button>
+              </b-field>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <form @submit.prevent="handleSearch(form.search)">
-      <input v-model="form.search" type="text" />
-      <button type="submit">Search</button>
-    </form>
+    <div class="container">
+      <div class="section">
+        <h2 class="title">Results</h2>
 
-    <table>
-      <thead>
-      <tr>
-        <th>Title</th>
-        <th>Domain</th>
-        <th>Breached</th>
-        <th>Description</th>
-        <th>Breach Date</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="breach in breaches">
-        <td>
-          <nuxt-link :to="`/breach/${breach.Name}`">{{breach.Title}}</nuxt-link>
-        </td>
-        <td>{{breach.Domain}}</td>
-        <td><pre>{{breach.DataClasses}}</pre></td>
-        <td v-html="breach.Description"></td>
-        <td>{{breach.BreachDate}}</td>
-      </tr>
-      </tbody>
-    </table>
+        <b-table
+          :data="breaches"
+        >
+          <template slot-scope="props">
+            <b-table-column label="Title">
+              <nuxt-link :to="`/breach/${props.row.Name}`">{{props.row.Title}}</nuxt-link>
+            </b-table-column>
+            <b-table-column label="Domain">
+              {{props.row.Domain}}
+            </b-table-column>
+            <b-table-column label="Breached">
+              {{props.row.DataClasses.join(',')}}
+            </b-table-column>
+            <b-table-column label="Description">
+              <p v-html="props.row.Description"></p>
+            </b-table-column>
+            <b-table-column label="Date">
+              {{props.row.BreachDate}}
+            </b-table-column>
+          </template>
+        </b-table>
+      </div>
+    </div>
   </div>
 </template>
 

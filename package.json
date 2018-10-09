@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.18.0",
+    "buefy": "^0.6.7",
     "nuxt": "^2.1.0"
   },
   "scripts": {

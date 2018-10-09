@@ -1,43 +1,56 @@
 <template>
   <div>
-    <h1 class="title">Breach</h1>
-    <h2 class="subtitle">{{$route.params.name}}</h2>
+    <div class="hero is-info">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Breach</h1>
+          <h2 class="subtitle">{{$route.params.name}}</h2>
 
-    <p v-html="breach.Description" />
+          <p v-html="breach.Description" />
 
-    <form @submit.prevent="handleSearch(form.search, breach.Domain)">
-      <input v-model="form.search" type="text" />
-      <button type="submit">Search Account</button>
-    </form>
+          <form @submit.prevent="handleSearch(form.search, breach.Domain)">
+            <b-field>
+              <b-input v-model="form.search" type="text" />
+              <button type="submit" class="button is-success">Search Account</button>
+            </b-field>
+          </form>
 
-    <pre v-if="breached === false">Not Found!</pre>
-    <p v-else-if="breached === true">Found! {{breached}}</p>
+          <p v-if="breached === false">Not Found!</p>
+          <p v-else-if="breached === true" class="has-text-warning has-text-weight-bold is-size-2">Found! {{breached}}</p>
+        </div>
+      </div>
+    </div>
 
-    <h2>Other places your account was found</h2>
-    <table border="1">
-      <thead>
-      <tr>
-        <th>Source</th>
-        <th>Title</th>
-        <th>Link</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="paste in pastes">
-        <td>{{paste.Source}}</td>
-        <td>{{paste.Title}}</td>
-        <td><a :href="paste.Id" target="_blank">{{paste.Id}}</a></td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="section">
+      <div class="container">
+        <h2 class="subtitle">Other places your account was found</h2>
 
+        <b-table
+          :data="pastes"
+        >
+          <template slot-scope="props">
+            <b-table-column label="Source">
+              {{props.row.Source}}
+            </b-table-column>
+            <b-table-column label="Title">
+              {{props.row.Title}}
+            </b-table-column>
+            <b-table-column label="Link">
+              {{props.row.Id}}
+            </b-table-column>
+          </template>
+        </b-table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import axios from 'axios'
+  import BTable from "buefy/src/components/table/Table";
 
   export default {
+    components: {BTable},
     async asyncData ({route}) {
 
       const breach = await axios.get(`https://haveibeenpwned.com/api/v2/breach/${route.params.name}`)
