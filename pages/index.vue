@@ -7,10 +7,6 @@
       <button type="submit">Search</button>
     </form>
 
-    <pre>
-      {{breaches}}
-    </pre>
-
     <table>
       <thead>
       <tr>
@@ -23,14 +19,15 @@
       </thead>
       <tbody>
       <tr v-for="breach in breaches">
-        <td>{{breach.Title}}</td>
+        <td>
+          <nuxt-link :to="`/breach/${breach.Name}`">{{breach.Title}}</nuxt-link>
+        </td>
         <td>{{breach.Domain}}</td>
         <td><pre>{{breach.DataClasses}}</pre></td>
         <td v-html="breach.Description"></td>
         <td>{{breach.BreachDate}}</td>
       </tr>
       </tbody>
-
     </table>
   </div>
 </template>
